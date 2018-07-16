@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class ScheduleTask {
+public class ScheduleTask implements ScheduleTaskInterface {
 
     @Autowired
     private SimpMessagingTemplate template;
 
     // this will send a message to an endpoint on which a client can subscribe
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedDelayString = "${delay}")
     public void trigger() {
         this.template.convertAndSend("/topic/message", "Date: " + new Date());
     }
